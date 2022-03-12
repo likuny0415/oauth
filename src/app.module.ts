@@ -7,11 +7,11 @@ import { GoogleOauthController } from './google-oauth/google-oauth.controller';
 import { GoogleOauthModule } from './google-oauth/google-oauth.module';
 import { GoogleOauthService } from './google-oauth/google-oauth.service';
 import { GoogleStrategy } from './google-oauth/google.strategy';
-
+require('dotenv').config()
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://kunyang:kunyang@cluster0.4rnvw.mongodb.net/oauth?retryWrites=true&w=majority',
+      process.env.MONGO_CONNECTION,
     ),
     CatModule,
     GoogleOauthModule,
