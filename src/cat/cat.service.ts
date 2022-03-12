@@ -24,6 +24,10 @@ export class CatsService {
     return this.catRepository.findAll({});
   }
 
+  async findOne(id: string): Promise<Cat | undefined> {
+    return this.catRepository.findOne(id);
+  }
+
   async removeCat(name: string, age: number, breed: string) {
     return this.catRepository.removeCat({
       name,

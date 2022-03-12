@@ -5,6 +5,10 @@ export type CatDocument = Cat & Document;
 
 @Schema()
 export class Cat {
+
+    @Prop()
+    id?: string;
+
     @Prop()
     name: string;
 

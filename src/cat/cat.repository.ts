@@ -1,7 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Cat, CatDocument } from "./cat.schema";
 import { Model, FilterQuery } from 'mongoose';
+import {ObjectID} from 'mongodb';
 
 
 @Injectable()
@@ -21,5 +22,19 @@ export class CatRepository {
 
     async removeCat(cat: Cat) {
         return this.catModel.deleteOne(cat);
+    }
+
+    async findOne(id: string): Promise<Cat | undefined> {
+        let cat;
+        try {
+            cat = await this.catModel.findById({_id: id}).exec()
+            console.log(cat);
+        } catch (e) {
+            throw new NotFoundException('Could not find cat.'); 
+        }
+        if (!cat) {
+            throw new NotFoundException("Not find the cat")
+        }
+        return cat;
     }
 }
