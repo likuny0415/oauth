@@ -18,6 +18,7 @@ export class GoogleOauthService {
             const user = this.userService.findUser(googleId);
             return {
                 "message": "User is login",
+                user
             }
         } catch (error) {
             this.userService.createUser({authType:"google", googleId:googleId})
