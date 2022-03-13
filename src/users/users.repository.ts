@@ -25,7 +25,6 @@ export class UserRepository {
         return curUser.save();
     }
 
-    async
 
     async findUser(id: string): Promise<User | undefined> {
         let user

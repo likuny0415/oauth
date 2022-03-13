@@ -13,7 +13,14 @@ export class GoogleOauthService {
         }
         
         const googleId = req.user.id
-        const user = this.userService.findUser(googleId);
+        console.log(googleId)
+        let user;
+        try {
+            user = this.userService.findUser(googleId);
+        } catch (error) {
+            "User not exist";
+        }
+
         if (user) {
             return "This user exists";
         } else {
