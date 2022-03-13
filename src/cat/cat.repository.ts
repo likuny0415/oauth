@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Cat, CatDocument } from "./cat.schema";
 import { Model, FilterQuery } from 'mongoose';
-import {ObjectID} from 'mongodb';
 
 
 @Injectable()
@@ -11,6 +10,7 @@ export class CatRepository {
         @InjectModel(Cat.name) private catModel: Model<CatDocument>
     ){}
 
+    
     async create(cat: Cat): Promise<Cat> {
         const newCat = new this.catModel(cat);
         return newCat.save()
