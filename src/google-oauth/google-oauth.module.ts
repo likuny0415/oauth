@@ -7,6 +7,7 @@ import { GoogleOauthService } from './google-oauth.service';
     imports: [UsersModule],
     controllers: [GoogleOauthController],
     providers: [GoogleOauthService,],
+
 })
 
 export class GoogleOauthModule {
