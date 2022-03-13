@@ -17,17 +17,17 @@ export class GoogleOauthService {
         const user = this.userService.findUser(googleId);
 
         if (user) {
-            return "This user exists";
+            this.userService.createUser({authType:"google", googleId:googleId})
+            return {
+                message: 'This user have been created',
+                user: req.user
+            }
         } else {
             this.userService.createUser({authType:"google", googleId:googleId})
-            return "This user have been created"
-        }
-        
-
-
-        return {
-            message: 'User from google',
-            user: req.user
+            return {
+                message: 'This user have been created',
+                user: req.user
+            }
         }
     }
 }
