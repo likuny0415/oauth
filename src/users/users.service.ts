@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { CreateUerDTO } from './dto/create-user.dto';
 import { UserRepository } from './users.repository';
 
@@ -19,7 +19,12 @@ export class UsersService {
         return "Must be sign in with google and facebook"
     }
 
-    async findUser(id: string) {
-        return await this.userRepository.findUser(id);
+    async findUser(request) {
+        
+        return await this.userRepository.findUser(request.googleId);
+    }
+
+    async findAll() {
+        return await this.userRepository.findAll();
     }
 }

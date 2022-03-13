@@ -29,14 +29,18 @@ export class UserRepository {
     async findUser(id: string): Promise<User | undefined> {
         let user
         try {
+            
             user = await this.userModel.findOne({googleId: id}).exec();
-            console.log(user)
         } catch(e) {
             return e;
         }
         if (!user) {
-            throw new NotFoundException("Not find this user");
+            return undefined;
         }
         return user;
+    }
+
+    async findAll() {
+        return await this.userModel.find();
     }
 }
