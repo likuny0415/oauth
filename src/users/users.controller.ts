@@ -17,8 +17,6 @@ export class UsersController {
 
     @Post("find")
     async findUser(@Body() request) {
-        console.log(request)
-        console.log("Above is request")
         return this.userService.findUser(request);
     }
 

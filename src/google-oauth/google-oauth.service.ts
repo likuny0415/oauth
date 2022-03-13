@@ -14,15 +14,12 @@ export class GoogleOauthService {
         
         const googleId = req.user.id
         
-        const user = this.userService.findUser(googleId);
-
-        if (user) {
-            this.userService.createUser({authType:"google", googleId:googleId})
+        try {
+            const user = this.userService.findUser(googleId);
             return {
-                message: 'This user have been created',
-                user: req.user
+                "message": "User is login",
             }
-        } else {
+        } catch (error) {
             this.userService.createUser({authType:"google", googleId:googleId})
             return {
                 message: 'This user have been created',
