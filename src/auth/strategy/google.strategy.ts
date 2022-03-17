@@ -39,7 +39,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       const oauthResponse = await this.authService.validateOAuthLogin(user, "google");
       
       done(null, {...JSON.parse(JSON.stringify(oauthResponse.user)), jwt: oauthResponse.jwt});
+      done(null, user)
     } catch (error) {
+      console.log(error)
       done(error, false)
     }
   }
