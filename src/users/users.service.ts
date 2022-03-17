@@ -11,13 +11,18 @@ export class UsersService {
 
    
 
-    async create(provider: string, thirdPartyId: string) {
-        return this.userRepository.create(provider, thirdPartyId)
-    }
+    // async create(provider: string, thirdPartyId: string) {
+    //     return this.userRepository.create(provider, thirdPartyId)
+    // }
 
     async findOne(provider: string, thirdPartyId: string) {
         
         return await this.userRepository.findOne(provider, thirdPartyId);
+    }
+
+    async create(request: CreateUerDTO) {
+        const createUser =  this.userRepository.create(request);
+        return createUser;
     }
 
     async findAll() {

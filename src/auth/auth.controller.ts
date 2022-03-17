@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateUerDTO } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -22,6 +23,11 @@ export class AuthController {
   @UseGuards(AuthGuard("google"))
   async googleAuth(@Req() req) {
 
+  }
+
+  @Post('test')
+  async test(@Body() body: CreateUerDTO) {
+    return this.authService.validateOAuthLogin(body, "google");
   }
 
   

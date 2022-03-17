@@ -10,14 +10,20 @@ export class UsersController {
         private readonly userService: UsersService
     ) {}
 
-    @Post("create")
-    async createUser(@Body() request: CreateUerDTO) {
-        return this.userService.create(request.provider, request.thirdPartyId);
-    }
+    // @Post("create")
+    // async createUser(@Body() request: CreateUerDTO) {
+    //     return this.userService.create(request.provider, request.thirdPartyId);
+    // }
 
     @Post("findOne")
     async findUser(@Body() request: CreateUerDTO) {
         return this.userService.findOne(request.provider, request.thirdPartyId);
+    }
+
+
+    @Post("create")
+    async createUser(@Body() request: CreateUerDTO) {
+        return this.userService.create(request);
     }
 
 }
