@@ -26,4 +26,16 @@ export class AuthService {
 
         return user;
     }
+
+    googleLogin(req) {
+        if (!req.user) {
+            return "No user found"
+        }
+        return {
+            message: "This is the current user",
+            user: req.user
+        }
+    }
+
+
 }

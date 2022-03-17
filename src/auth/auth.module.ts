@@ -6,6 +6,7 @@ import { UsersModule } from 'src/users/users.module';
 import { UserRepository } from 'src/users/users.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/users/users.schema';
+import { GoogleStrategy } from 'src/google-oauth/google.strategy';
 
 @Module({
   imports:[UsersModule, MongooseModule.forFeature([{name: User.name, schema: UserSchema}])],
