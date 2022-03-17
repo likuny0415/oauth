@@ -9,7 +9,7 @@ export class GoogleOauthController {
   @Get()
   @UseGuards(AuthGuard("google"))
   async googleAuth(@Req() req) {
-    return req.profile
+  
   }
 
   @Get("redirect")
