@@ -26,13 +26,14 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       const { id, name, emails, photos } = profile;
       const user = {
         id: id,
+        profile: profile,
         email: emails[0].value,
         firstName: name.givenName,
         lastName: name.familyName,
         picture: photos[0].value,
         accessToken
       }
-      done(null, profile);
+      done(null, user);
 
 
   }
