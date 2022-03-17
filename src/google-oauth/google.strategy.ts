@@ -12,6 +12,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       clientSecret: process.env.GOOGLE_SECRET,
       callbackURL:  process.env.GOOGLE_CALLBACK_URL,
       scope: ["email", "profile"],
+    }, async (accessToken, refreshToken, profile, done) => {
+      try {
+        
+      } catch (error) {
+        
+      }
     });
   }
   
@@ -26,7 +32,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
         picture: photos[0].value,
         accessToken
       }
-      done(null, user);
+      done(null, profile);
+
 
   }
 }

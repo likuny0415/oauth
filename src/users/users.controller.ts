@@ -11,17 +11,13 @@ export class UsersController {
     ) {}
 
     @Post("create")
-    async createUser(@Body() user: CreateUerDTO) {
-        return this.userService.createUser(user);
+    async createUser(@Body() request: CreateUerDTO) {
+        return this.userService.create(request.provider, request.thirdPartyId);
     }
 
-    @Post("find")
-    async findUser(@Body() request) {
-        return this.userService.findUser(request);
+    @Post("findOne")
+    async findUser(@Body() request: CreateUerDTO) {
+        return this.userService.findOne(request.provider, request.thirdPartyId);
     }
 
-    @Post("findall")
-    async findAll() {
-        return this.userService.findAll();
-    }
 }

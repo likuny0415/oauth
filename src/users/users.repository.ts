@@ -2,8 +2,6 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument } from "./users.schema";
 import { Model } from 'mongoose'
-import { NotFoundError } from "rxjs";
-import { CreateUerDTO } from "./dto/create-user.dto";
 
 @Injectable()
 export class UserRepository {
@@ -13,21 +11,14 @@ export class UserRepository {
     ){}
 
     
-    async createUser(id: string, authType: string): Promise<User> {
-        const newUser = new User();
-        if (authType == "google") {
-            newUser.googleId = id;
-        }
-        if (authType == "facebook") {
-            newUser.facebookid = id;
-        }
-        const curUser = new this.userModel(newUser);
+    async create(provider: string, thirdPartyId: string): Promise<User> {
+        const curUser = new this.userModel({provider, thirdPartyId});
         return curUser.save();
     }
 
 
-    async findUser(id: string): Promise<User | undefined> {
-        const user = await this.userModel.findOne({googleId: id}).exec();
+    async findOne(provider: string, thirdPartyId: string): Promise<User | undefined> {
+        const user = await this.userModel.findOne( { provider, thirdPartyId }).exec();
         
         if (!user) {
             throw new NotFoundException('Could not find user.');

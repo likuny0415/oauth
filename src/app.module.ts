@@ -8,6 +8,8 @@ import { GoogleOauthModule } from './google-oauth/google-oauth.module';
 import { GoogleOauthService } from './google-oauth/google-oauth.service';
 import { GoogleStrategy } from './google-oauth/google.strategy';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+
 
 require('dotenv').config()
 @Module({
@@ -18,6 +20,7 @@ require('dotenv').config()
     CatModule,
     GoogleOauthModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController, GoogleOauthController],
   providers: [AppService, GoogleOauthService, GoogleStrategy],

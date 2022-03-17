@@ -4,11 +4,12 @@ export type UserDocument = User & Document
 
 @Schema()
 export class User {
-    @Prop()
-    googleId: string
 
     @Prop()
-    facebookid: string
+    provider: string
+
+    @Prop()
+    thirdPartyId: string
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

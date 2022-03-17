@@ -1,5 +1,4 @@
 export interface CreateUerDTO {
-    authType: string;
-    googleId?: string;
-    facebookId?: string;
+    provider: string;
+    thirdPartyId: string;
 }

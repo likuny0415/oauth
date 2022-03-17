@@ -9,22 +9,32 @@ export class UsersService {
         private readonly userRepository: UserRepository
     ) {}
 
-    async createUser(user: CreateUerDTO) {
-        if (user.authType == "google") {
-            return await this.userRepository.createUser(user.googleId, user.authType);
-        }
-        if (user.authType == "facebook") {
-            return await this.userRepository.createUser(user.facebookId, user.authType);
-        }
-        return "Must be sign in with google and facebook"
+   
+
+    async create(provider: string, thirdPartyId: string) {
+        return this.userRepository.create(provider, thirdPartyId)
     }
 
-    async findUser(request) {
+    async findOne(provider: string, thirdPartyId: string) {
         
-        return await this.userRepository.findUser(request.googleId);
+        return await this.userRepository.findOne(provider, thirdPartyId);
     }
 
     async findAll() {
         return await this.userRepository.findAll();
     }
+
+    // async test(googleId) {
+    //     console.log(googleId)
+    //     try {
+    //         const user = await this.findOne(googleId);
+    //         console.log(user);
+    //         return "Find the user"
+    //     } catch (error) {
+    //         const newUser = await this.createUser(googleId, "google");
+    //         console.log(newUser)
+    //         return "create the user"
+    //     }
+    
+    // }
 }
