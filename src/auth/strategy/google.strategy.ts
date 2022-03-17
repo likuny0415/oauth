@@ -27,7 +27,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       const { id, displayName, name, emails, photos, provider } = profile;
 
       const user = {
-        id: id,
+        thirdPartyId: id,
         provider,
         email: emails[0].value,
         displayName,

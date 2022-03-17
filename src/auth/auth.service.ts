@@ -47,7 +47,7 @@ export class AuthService {
     async validateOAuthLogin(userProfile: any, provider: string) {
         
         try {
-            let existingUser = await this.usersService.findOne(provider, userProfile.id);
+            let existingUser = await this.usersService.findOne(provider, userProfile.thirdPartyId);
             if (!existingUser) {
                 existingUser = await this.usersService.create(userProfile);
             }
