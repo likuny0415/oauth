@@ -62,5 +62,11 @@ export class AuthService {
         }
     }
 
+    async test(userProfile: any, provider: string) {
+        const result = await this.validateOAuthLogin(userProfile, provider);
+        
+        return {...JSON.parse(JSON.stringify(result.user)), jwt: result.jwt};
+    }
+
 
 }

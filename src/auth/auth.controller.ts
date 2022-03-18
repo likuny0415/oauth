@@ -27,7 +27,7 @@ export class AuthController {
 
   @Post('test')
   async test(@Body() body: CreateUerDTO) {
-    return this.authService.validateOAuthLogin(body, "google");
+    return this.authService.test(body, body.provider);
   }
 
   
