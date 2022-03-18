@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUerDTO } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -19,22 +19,37 @@ export class AuthController {
   //     return this.authService.signin(body.provider, body.thirdPartyId);
   //   }
 
-  @Get("google")
+  @Get('/logout')
+  logout(@Req() req, @Res() res) {
+    req.logout()
+    res.redirect('/')
+  }
+
+  @Get('/github')
+  @UseGuards(AuthGuard('github'))
+  githubAuth() {}
+
+  @Get('/github/redirect')
+  githubAuthRedirect(@Req() req, @Res() res) {
+    return "hello github"
+  }
+
+  @Get("/google")
   @UseGuards(AuthGuard("google"))
   async googleAuth(@Req() req) {
 
-  }
-
-  @Post('test')
-  async test(@Body() body: CreateUerDTO) {
-    return this.authService.test(body, body.provider);
   }
 
   
   @Get("/google/redirect")
   @UseGuards(AuthGuard("google"))
   googleAuthRedirect(@Req() req) {
-    return "heelo world"
+    return this.authService.googleLogin(req)
+  }
+
+  @Post('test')
+  async test(@Body() body: CreateUerDTO) {
+    return this.authService.test(body, body.provider);
   }
 
 }

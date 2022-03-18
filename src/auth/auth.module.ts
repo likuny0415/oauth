@@ -7,6 +7,7 @@ import { User, UserSchema } from "src/users/users.schema";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
 import { GoogleStrategy } from "./strategy/google.strategy";
+import { GithubStrategy } from "./strategy/github.strategy";
 require('dotenv').config();
 @Module({
   imports: [
@@ -23,6 +24,6 @@ require('dotenv').config();
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, GoogleStrategy],
+  providers: [AuthService, GoogleStrategy, GithubStrategy],
 })
 export class AuthModule {}
