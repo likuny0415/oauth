@@ -27,12 +27,16 @@ export class AuthController {
 
   @Get('/github')
   @UseGuards(AuthGuard('github'))
-  githubAuth(@Req() req) {}
+  githubAuth() {}
 
   @Get('/github/redirect')
   @UseGuards(AuthGuard('github'))
   githubAuthRedirect(@Req() req, @Res() res) {
-    return "hello"
+    console.log('this is the req.user::', req.user)
+    const jwt: string = req.user.jwt;
+    if (jwt) {
+      res.redirect("https://www.baidu.com")
+    }
   }
 
   @Get("/google")
