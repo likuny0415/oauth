@@ -30,8 +30,9 @@ export class AuthController {
   githubAuth() {}
 
   @Get('/github/redirect')
+  @UseGuards(AuthGuard('github'))
   githubAuthRedirect(@Req() req, @Res() res) {
-    return "hello github"
+    return this.authService.googleLogin(req)
   }
 
   @Get("/google")
