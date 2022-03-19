@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import { CreateUerDTO } from 'src/users/dto/create-user.dto';
@@ -22,9 +22,12 @@ export class AuthController {
 
   @Get('/logout')
   logout(@Req() req, @Res() res: Response) {
+    
     res.cookie('accessToken', "", {
       httpOnly: true,
-      maxAge: 0
+      sameSite: "strict",
+      path: "/",
+      expires: new Date(0),
     }).redirect("http://localhost:3000/")
   }
 
@@ -43,15 +46,20 @@ export class AuthController {
     if (jwt) {
       res.cookie('accessToken', jwt, {
         httpOnly: true,
-        // expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
         maxAge: 7 * 24 * 60 * 60 * 1000
       })
+      
       res.redirect("http://localhost:3000/login")
     }
 
     // if (jwt) {
     //   res.redirect("https:/www.google.com")
     // }
+  }
+
+  @Post('login')
+  login(@Body() body) {
+    // return this.authService.login(body);
   }
 
   @Get("/google")
@@ -70,6 +78,13 @@ export class AuthController {
   @Post('test')
   async test(@Body() body: CreateUerDTO) {
     return this.authService.test(body, body.provider);
+  }
+
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  async whoami(@Req() req) {
+    console.log(req)
+    return req.user
   }
 
 }
