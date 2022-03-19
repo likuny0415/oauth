@@ -34,4 +34,15 @@ User.
 6. Now I have a user, has **_id** (Mongo id), **authtype**(google, meta, github..), **thirdParty_id**
 so one authType can't have two same ids, so this structure of User makes sure it will not cause collision
 , because I can find a user through authType and id, it will guarantee to give me a unique user
+
+#### Task2: How to authorize users to access data?
+Problems:
+1. Now user can signin with OAuth, and they have a accessToken, how to disable user without accessToken to fetch data?
+2. Users with correct JWT token can fetch data now, but how to allow user to fetch their only data? 
+
+Thoughts:
+1. Create middleware to extract jwt token from the user, and check the 
+JWT secret, if it matches, then it can fetch data.
+2. JWT contains a user id, JWT token is bonding with a specific user, so
+REST Api will check the JWT token user id, and use this id to fetch this own data. This method makes sure two things, first is it verifies the JWT token for authentiaction, and JWT userid for authorization for fethcing specific data.
  

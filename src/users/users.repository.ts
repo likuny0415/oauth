@@ -17,13 +17,20 @@ export class UserRepository {
     //     return curUser.save();
     // }
 
+    async findUserId(provider: string, thirdPartyId: string) {
+        const user = await this.userModel.findOne({ provider, thirdPartyId});
+        return {
+            userId: user._id
+        }
+    }
+
     async create(user: CreateUerDTO) {
         const newUser = new this.userModel({...user});
         return newUser.save();
     }
 
 
-    async findOne(provider: string, thirdPartyId: string): Promise<User | undefined> {
+    async findOne(provider: string, thirdPartyId: string) {
         const user = await this.userModel.findOne( { provider, thirdPartyId }).exec();
         
         // if (!user) {

@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
 import { CreateUerDTO } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 
@@ -20,23 +21,37 @@ export class AuthController {
   //   }
 
   @Get('/logout')
-  logout(@Req() req, @Res() res) {
-    req.logout()
-    res.redirect('/')
+  logout(@Req() req, @Res() res: Response) {
+    res.cookie('accessToken', "", {
+      httpOnly: true,
+      maxAge: 0
+    }).redirect("http://localhost:3000/")
   }
 
   @Get('/github')
   @UseGuards(AuthGuard('github'))
-  githubAuth() {}
+  githubAuth() {
+
+  }
 
   @Get('/github/redirect')
   @UseGuards(AuthGuard('github'))
-  githubAuthRedirect(@Req() req, @Res() res) {
+  githubAuthRedirect(@Req() req, @Res() res: Response) {
     console.log('this is the req.user::', req.user)
     const jwt: string = req.user.jwt;
+
     if (jwt) {
-      res.redirect("https://www.baidu.com")
+      res.cookie('accessToken', jwt, {
+        httpOnly: true,
+        // expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        maxAge: 7 * 24 * 60 * 60 * 1000
+      })
+      res.redirect("http://localhost:3000/login")
     }
+
+    // if (jwt) {
+    //   res.redirect("https:/www.google.com")
+    // }
   }
 
   @Get("/google")

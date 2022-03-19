@@ -15,14 +15,20 @@ export class UsersService {
     //     return this.userRepository.create(provider, thirdPartyId)
     // }
 
-    async findOne(provider: string, thirdPartyId: string) {
-        
-        return await this.userRepository.findOne(provider, thirdPartyId);
+    async findUserId(provider: string, thirdPartyId: string) {
+        return this.userRepository.findUserId(provider, thirdPartyId)
     }
 
+    async findOne(provider: string, thirdPartyId: string) {
+        const user = await this.userRepository.findOne(provider, thirdPartyId);
+        return user
+    }
+    
+
     async create(request: CreateUerDTO) {
-        const createUser =  this.userRepository.create(request);
-        return createUser;
+        const createUser =  await this.userRepository.create(request);
+        
+        return {userId: createUser._id}
     }
 
     async findAll() {

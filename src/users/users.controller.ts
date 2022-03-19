@@ -26,4 +26,9 @@ export class UsersController {
         return this.userService.create(request);
     }
 
+    @Post('findUserId')
+    async findUserId(@Body() request: CreateUerDTO) {
+        return this.userService.findUserId(request.provider, request.thirdPartyId)
+    }
+
 }

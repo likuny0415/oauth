@@ -30,8 +30,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
         displayName: profile.username,
         username: profile.login || jsonProfile.login,
         email: profile.email || Array.isArray(profile.emails) && profile.emails[0].value,
-        picture: `${jsonProfile.avatar_url}&size=200`,
-        accessToken
+        picture: `${jsonProfile.avatar_url}&size=200`
       };
       
       const oauthResponse = await this.authService.validateOAuthLogin(userProfile, 'github');
