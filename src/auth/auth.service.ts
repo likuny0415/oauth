@@ -49,14 +49,14 @@ export class AuthService {
         try {
             let existingUser = await this.usersService.findOne(provider, userProfile.thirdPartyId);
             if (!existingUser) {
-                // existingUser = await this.usersService.signup(userProfile);
+                existingUser = await this.usersService.signup(userProfile);
             }
             console.log("---------------existing user")
             console.log(existingUser)
             console.log("---------------existing user")
 
-            const { userId } = existingUser
-            const signinPayload = { userId };
+            const { id } = existingUser
+            const signinPayload = { id };
             const jwt: string = sign(signinPayload, this.JWT_SECRET_KEY, { expiresIn: 3600 });
             return { jwt, user: existingUser}
 

@@ -12,24 +12,13 @@ export class UsersService {
     ) {}
 
     async findOne(provider: string, thirdPartyId: string) {
-        
         const user = await this.prisma.user.findFirst({
             where: {
                 provider: provider,
                 thirdPartyId: thirdPartyId
             }
         })
-        if (user) {
-            return {
-                code:200,
-                userId: user.id
-            }
-        } else {
-            return {
-                code:200,
-                msg: "Not find"
-            }
-        }
+        return user
     }
 
     async create(data: Prisma.UserCreateInput) {
@@ -40,6 +29,13 @@ export class UsersService {
         }
     }
 
+    // thirdPartyId: profile.id || jsonProfile.id,
+    //     provider: profile.provider,
+    //     displayName: profile.username,
+    //     username: profile.login || jsonProfile.login,
+    //     email: profile.email || Array.isArray(profile.emails) && profile.emails[0].value,
+    //     picture: `${jsonProfile.avatar_url}&size=200`
+
     async signup(UserProfile) {
         const { thirdPartyId, provider, email, displayName, picture  } = UserProfile
         
@@ -47,10 +43,7 @@ export class UsersService {
         const user = await this.prisma.user.create({
             data
         })
-        return {
-            userId: user.id,
-            email: user.email,
-        }
+        return user
     }
 
     async findAll() {
