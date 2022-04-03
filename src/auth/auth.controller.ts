@@ -40,14 +40,14 @@ export class AuthController {
   @Get('/github/redirect')
   @UseGuards(AuthGuard('github'))
   githubAuthRedirect(@Req() req, @Res() res: Response) {
-    console.log('this is the req.user::', req.user)
+    console.log(req.user.jwt)
     const jwt: string = req.user.jwt;
 
     if (jwt) {
       res.cookie('accessToken', jwt, {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000
-      })
+      }).redirect("http://localhost:3000/");
       
       res.redirect("http://localhost:3000/login")
     }
@@ -71,8 +71,17 @@ export class AuthController {
   
   @Get("/google/redirect")
   @UseGuards(AuthGuard("google"))
-  googleAuthRedirect(@Req() req) {
-    return this.authService.googleLogin(req)
+  googleAuthRedirect(@Req() req, @Res() res: Response) {
+    const jwt: string = req.user.jwt;
+
+    if (jwt) {
+      res.cookie('accessToken', jwt, {
+        httpOnly: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000
+      })
+      
+      res.redirect("http://localhost:3000/login")
+    }
   }
 
   @Post('test')
@@ -83,7 +92,6 @@ export class AuthController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   async whoami(@Req() req) {
-    console.log(req)
     return req.user
   }
 

@@ -1,38 +1,24 @@
 
-import { Model, FilterQuery } from 'mongoose';
-import { Body, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Cat, CatDocument } from './cat.schema';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { CatRepository } from './cat.repository';
+import { Injectable } from '@nestjs/common';
+import { Cat, Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma.service';
+
+
 
 @Injectable()
 export class CatsService {
-  constructor(private readonly catRepository: CatRepository) {}
+  constructor(private prisma: PrismaService) {}
 
-  async create(name: string, age: number, breed: string): Promise<Cat> {
-    return await this.catRepository.create(
-        {
-            name,
-            age,
-            breed
-        }
-    )
+  async create(data: Prisma.CatCreateInput) {
+    return this.prisma.cat.create({data})
   }
 
-  async findAll(): Promise<Cat[]> {
-    return this.catRepository.findAll({});
-  }
+  async findOne(catData: Cat) {
+    return this.prisma.cat.findMany({
+      where: {
+        name: catData.name,
 
-  async findOne(id: string): Promise<Cat | undefined> {
-    return this.catRepository.findOne(id);
-  }
-
-  async removeCat(name: string, age: number, breed: string) {
-    return this.catRepository.removeCat({
-      name,
-      age,
-      breed
-  });
+      }
+    })
   }
 }

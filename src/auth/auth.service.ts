@@ -47,12 +47,15 @@ export class AuthService {
     async validateOAuthLogin(userProfile: any, provider: string) {
         
         try {
-            let existingUser = await this.usersService.findUserId(provider, userProfile.thirdPartyId);
+            let existingUser = await this.usersService.findOne(provider, userProfile.thirdPartyId);
             if (!existingUser) {
-                existingUser = await this.usersService.create(userProfile);
+                // existingUser = await this.usersService.signup(userProfile);
             }
+            console.log("---------------existing user")
+            console.log(existingUser)
+            console.log("---------------existing user")
 
-            const {userId } = existingUser
+            const { userId } = existingUser
             const signinPayload = { userId };
             const jwt: string = sign(signinPayload, this.JWT_SECRET_KEY, { expiresIn: 3600 });
             return { jwt, user: existingUser}

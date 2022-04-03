@@ -1,12 +1,8 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-github2';
 import { VerifiedCallback } from 'passport-jwt';
 import { AuthService } from '../auth.service';
-
-
-
-
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   constructor(private readonly authService: AuthService) {
@@ -28,7 +24,6 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
         thirdPartyId: profile.id || jsonProfile.id,
         provider: profile.provider,
         displayName: profile.username,
-        username: profile.login || jsonProfile.login,
         email: profile.email || Array.isArray(profile.emails) && profile.emails[0].value,
         picture: `${jsonProfile.avatar_url}&size=200`
       };

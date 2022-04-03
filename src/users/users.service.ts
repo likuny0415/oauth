@@ -1,51 +1,61 @@
-import { Body, Injectable } from '@nestjs/common';
-import { CreateUerDTO } from './dto/create-user.dto';
-import { UserRepository } from './users.repository';
+import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+
+import { PrismaService } from 'src/prisma.service';
+
 
 @Injectable()
 export class UsersService {
 
     constructor(
-        private readonly userRepository: UserRepository
+        private readonly prisma: PrismaService
     ) {}
 
-   
-
-    // async create(provider: string, thirdPartyId: string) {
-    //     return this.userRepository.create(provider, thirdPartyId)
-    // }
-
-    async findUserId(provider: string, thirdPartyId: string) {
-        return this.userRepository.findUserId(provider, thirdPartyId)
-    }
-
     async findOne(provider: string, thirdPartyId: string) {
-        const user = await this.userRepository.findOne(provider, thirdPartyId);
-        return user
-    }
-    
-
-    async create(request: CreateUerDTO) {
-        const createUser =  await this.userRepository.create(request);
         
-        return {userId: createUser._id}
+        const user = await this.prisma.user.findFirst({
+            where: {
+                provider: provider,
+                thirdPartyId: thirdPartyId
+            }
+        })
+        if (user) {
+            return {
+                code:200,
+                userId: user.id
+            }
+        } else {
+            return {
+                code:200,
+                msg: "Not find"
+            }
+        }
+    }
+
+    async create(data: Prisma.UserCreateInput) {
+        const user = await this.prisma.user.create({data})
+        return {
+            userId: user.id,
+            email: user.email,
+        }
+    }
+
+    async signup(UserProfile) {
+        const { thirdPartyId, provider, email, displayName, picture  } = UserProfile
+        
+        const data = { thirdPartyId, provider, email, displayName, picture  }
+        const user = await this.prisma.user.create({
+            data
+        })
+        return {
+            userId: user.id,
+            email: user.email,
+        }
     }
 
     async findAll() {
-        return await this.userRepository.findAll();
+        const users = await this.prisma.user.findMany();
+        return users
     }
 
-    // async test(googleId) {
-    //     console.log(googleId)
-    //     try {
-    //         const user = await this.findOne(googleId);
-    //         console.log(user);
-    //         return "Find the user"
-    //     } catch (error) {
-    //         const newUser = await this.createUser(googleId, "google");
-    //         console.log(newUser)
-    //         return "create the user"
-    //     }
-    
-    // }
 }
