@@ -45,4 +45,10 @@ Thoughts:
 JWT secret, if it matches, then it can fetch data.
 2. JWT contains a user id, JWT token is bonding with a specific user, so
 REST Api will check the JWT token user id, and use this id to fetch this own data. This method makes sure two things, first is it verifies the JWT token for authentiaction, and JWT userid for authorization for fethcing specific data.
+
+#### Tasks3. How to connect the relationships between user and todos
+Where to post the todo?
+- It must be down by the user, because only the user has the right to make the todo
+- So it is like an article and author, the todo must have a user id and it depends on the front end to solve this problem.
+
  

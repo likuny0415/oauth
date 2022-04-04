@@ -92,7 +92,14 @@ export class AuthController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   async whoami(@Req() req) {
-    return req.user
+    if (req.user) {
+      return req.user
+    } else {
+      return {
+        code: 200,
+        msg: "success"
+      }
+    }
   }
 
 }

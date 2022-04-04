@@ -18,6 +18,17 @@ model User {
   email String?
   displayName String?
   picture String?
+  todos Todo[]
+}
+
+model Todo {
+  id String @id
+  text String
+  ddl DateTime
+  complete Boolean
+  priority String
+  user User @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model Cat {

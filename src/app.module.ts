@@ -5,6 +5,8 @@ import { CatModule } from './cat/cat.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaService } from './prisma.service';
+import { TodoController } from './todo/todo.controller';
+import { TodoModuel } from './todo/todo.module';
 
 
 
@@ -14,6 +16,7 @@ require('dotenv').config()
     CatModule,
     UsersModule,
     AuthModule,
+    TodoModuel
   ],
   controllers: [AppController],
   providers: [AppService,     PrismaService
