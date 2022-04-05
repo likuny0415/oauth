@@ -7,7 +7,19 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser())
   app.setGlobalPrefix("api/v1")
-  app.enableCors()
+
+  // important for front end to carry with credientials
+  app.enableCors({
+    origin: true,
+    allowedHeaders: 'Cookies, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true
+  })
+
+  // app.enableCors()
+  
+
+
   await app.listen(process.env.PORT || 8000);
 }
 bootstrap();

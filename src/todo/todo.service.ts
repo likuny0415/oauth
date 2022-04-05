@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { Todo } from "@prisma/client";
 import dayjs from "dayjs";
 import { PrismaService } from "src/prisma.service";
 
@@ -9,8 +10,8 @@ export default class TodoService {
         private prisma: PrismaService
     ) {}
 
-    async createTodo(data) {
-        const { id, text, ddl, complete, priority, userId } = data
+    async createTodo(request: Todo) {
+        const { id, text, ddl, complete, priority, userId } = request
         const ddlToDate = dayjs(ddl).toDate()
        
         const todo = await this.prisma.todo.create({
@@ -35,5 +36,31 @@ export default class TodoService {
             todo.ddl = dayjs(todo.ddl).toDate()
         })
         return todos
+    }
+
+    async deleteTodo(todoId: string) {
+        const deleteTodo = await this.prisma.todo.delete({
+            where: {
+                id: todoId
+            }
+        })
+        return deleteTodo
+    }
+
+    async updateTodo(request: Todo) {
+        const { id, text, ddl, complete, priority, userId } = request;
+        const ddlToDate = dayjs(ddl).toDate()
+        const updateTodo = await this.prisma.todo.update({
+            where: {
+                id
+            },
+            data: {
+                text,
+                ddl: ddlToDate,
+                complete,
+                priority,
+            }
+        })
+        return updateTodo
     }
 }

@@ -10,16 +10,6 @@ export class AuthController {
     ) {
   }
 
-  //  @Post('/signup')
-  //   async signup(@Body() body) {
-  //     return this.authService.signup(body.provider, body.thirdPartyId);
-  //   }
-
-  //   @Post('/signin')
-  //   async signin(@Body() body) {
-  //     return this.authService.signin(body.provider, body.thirdPartyId);
-  //   }
-
   @Get('/logout')
   logout(@Req() req, @Res() res: Response) {
     
@@ -40,21 +30,20 @@ export class AuthController {
   @Get('/github/redirect')
   @UseGuards(AuthGuard('github'))
   githubAuthRedirect(@Req() req, @Res() res: Response) {
-    console.log(req.user.jwt)
+    
     const jwt: string = req.user.jwt;
 
     if (jwt) {
       res.cookie('accessToken', jwt, {
+        sameSite: 'none',
+        secure: true,
         httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 365
       }).redirect("http://localhost:3000/");
-      
+    }
+    else {
       res.redirect("http://localhost:3000/login")
     }
-
-    // if (jwt) {
-    //   res.redirect("https:/www.google.com")
-    // }
   }
 
   @Post('login')
@@ -77,7 +66,7 @@ export class AuthController {
     if (jwt) {
       res.cookie('accessToken', jwt, {
         httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000
+        maxAge: 7 * 24 * 60 * 60
       })
       
       res.redirect("http://localhost:3000/login")
@@ -92,6 +81,7 @@ export class AuthController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   async whoami(@Req() req) {
+    
     if (req.user) {
       return req.user
     } else {

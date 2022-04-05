@@ -12,7 +12,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
                 if (!req || !req.cookies) {
                     return null;
                 }
-                
                 return req.cookies['accessToken']
             },
             ignoreExpiration: false,

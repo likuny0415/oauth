@@ -54,7 +54,7 @@ export class AuthService {
         
             const { id } = existingUser
             const signinPayload = { id };
-            const jwt: string = sign(signinPayload, this.JWT_SECRET_KEY, { expiresIn: 3600 });
+            const jwt: string = sign(signinPayload, this.JWT_SECRET_KEY, { expiresIn: '365d' });
             return { jwt, user: existingUser}
 
         } catch (error) {
