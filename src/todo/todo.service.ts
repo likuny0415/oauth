@@ -27,12 +27,36 @@ export default class TodoService {
                 }
             }
         })
-    
        return todo
     }
 
+    async finishTodo(id: string) {
+        const todo = await this.prisma.todo.update({
+            where: {
+                id: id
+            },
+            data: {
+                complete: 2
+            }
+        })
+        return todo
+    }
+
     async findAll() {
-        const todos = await this.prisma.todo.findMany();
+        const todos = await this.prisma.todo.findMany({
+            orderBy: [
+                {
+                    priority: "desc"
+                },
+                {
+                    ddl: 'asc'
+                }
+            ],
+            where: {
+                complete: 1
+            }
+
+        });
         todos.map(todo => {
             todo.ddl = dayjs(todo.ddl).toDate()
         })
@@ -40,16 +64,19 @@ export default class TodoService {
     }
 
     async deleteTodo(todoId: string) {
-        const deleteTodo = await this.prisma.todo.delete({
+        const deleteTodo = await this.prisma.todo.update({
             where: {
                 id: todoId
+            },
+            data: {
+                complete: 3
             }
         })
         return deleteTodo
     }
 
     async updateTodo(request: Todo) {
-        const { id, text, ddl, complete, priority, userId } = request;
+        const { id, text, ddl, priority } = request;
         const ddlToDate = dayjs(ddl).toDate()
         const updateTodo = await this.prisma.todo.update({
             where: {
@@ -58,7 +85,6 @@ export default class TodoService {
             data: {
                 text,
                 ddl: ddlToDate,
-                complete,
                 priority,
             }
         })

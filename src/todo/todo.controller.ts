@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Todo } from '@prisma/client';
+import { DeleteTodo, FinishTodo } from './dto/FinishTodo.dto';
 import TodoService from './todo.service';
 
 @Controller('todo')
@@ -24,6 +25,18 @@ export class TodoController {
         };
     }
 
+
+    @Post('finish')
+    async finish(@Body() request: FinishTodo) { 
+        const { id } = request
+        const r = await this.todoService.finishTodo(id);
+        return {
+            code: 200,
+            msg: "success",
+            r
+        }
+    }
+
     @Get("findall")
     async findAll() {
         const r = await this.todoService.findAll();
@@ -33,9 +46,10 @@ export class TodoController {
             r
         }
     }
+    
 
     @Post('delete')
-    async delete(@Body() request: Todo) {
+    async delete(@Body() request: DeleteTodo) {
         const r = await this.todoService.deleteTodo(request.id)
         return {
             code: 200,
