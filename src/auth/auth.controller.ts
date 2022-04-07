@@ -10,6 +10,27 @@ export class AuthController {
     ) {
   }
 
+  @Post('login')
+  @UseGuards(AuthGuard("local"))
+  async login(@Req() req, @Res() res: Response) {
+    const jwt: string = req.user.jwt;
+
+    if (jwt) {
+      res.cookie('accessToken', jwt, {
+        path: "/",
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 365,
+      }).redirect("http://localhost:3000")
+    } else {
+      res.redirect("http://localhost:3000/login")
+    }
+  }
+
+  @Post('signup')
+  async signup(@Body() signupUser) {
+    return await this.authService.signup(signupUser)
+  }
+ 
   @Get('/logout')
   logout(@Req() req, @Res() res: Response) {
     
@@ -24,7 +45,6 @@ export class AuthController {
   @Get('/github')
   @UseGuards(AuthGuard('github'))
   githubAuth() {
-
   }
 
   @Get('/github/redirect')
@@ -44,11 +64,6 @@ export class AuthController {
     else {
       res.redirect("http://localhost:3000/login")
     }
-  }
-
-  @Post('login')
-  login(@Body() body) {
-    // return this.authService.login(body);
   }
 
   @Get("/google")

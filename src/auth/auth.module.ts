@@ -7,6 +7,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { GoogleStrategy } from "./strategy/google.strategy";
 import { GithubStrategy } from "./strategy/github.strategy";
 import { JwtStrategy } from "./strategy/jwt.strategy";
+import { LocalStrategy } from "./strategy/local.strategy";
 require('dotenv').config();
 @Module({
   imports: [
@@ -22,6 +23,6 @@ require('dotenv').config();
     UsersModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, GoogleStrategy, GithubStrategy, JwtStrategy],
+  providers: [AuthService, GoogleStrategy, GithubStrategy, JwtStrategy, LocalStrategy],
 })
 export class AuthModule {}

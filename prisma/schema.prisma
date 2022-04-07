@@ -14,8 +14,9 @@ datasource db {
 model User {
   id String @id @default(uuid())
   provider String
-  thirdPartyId String
-  email String?
+  thirdPartyId String?
+  email String? @unique
+  password String?
   displayName String?
   picture String?
   todos Todo[]

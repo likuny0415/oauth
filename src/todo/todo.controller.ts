@@ -25,7 +25,6 @@ export class TodoController {
         };
     }
 
-
     @Post('finish')
     async finish(@Body() request: FinishTodo) { 
         const { id } = request
@@ -47,7 +46,6 @@ export class TodoController {
         }
     }
     
-
     @Post('delete')
     async delete(@Body() request: DeleteTodo) {
         const r = await this.todoService.deleteTodo(request.id)
