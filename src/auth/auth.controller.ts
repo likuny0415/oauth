@@ -12,18 +12,19 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(AuthGuard("local"))
-  async login(@Req() req, @Res() res: Response) {
+  async login(@Request() req, @Res() res: Response) {
     const jwt: string = req.user.jwt;
-
+    
     if (jwt) {
       res.cookie('accessToken', jwt, {
         path: "/",
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 365,
-      }).redirect("http://localhost:3000")
-    } else {
-      res.redirect("http://localhost:3000/login")
+      })
+      res.json({ loggedIn: true})
     }
+   
+    return await this.authService.login(req.user)
   }
 
   @Post('signup')
@@ -96,14 +97,8 @@ export class AuthController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   async whoami(@Req() req) {
-    
     if (req.user) {
-      return req.user
-    } else {
-      return {
-        code: 200,
-        msg: "success"
-      }
+      return { loggedIn: true }
     }
   }
 

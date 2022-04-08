@@ -15,6 +15,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     if (!res) {
       throw new UnauthorizedException();
     }
+    
     const result = {...JSON.parse(JSON.stringify(res.user)), jwt: res.jwt}
     return result;
   }
