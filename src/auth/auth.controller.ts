@@ -54,7 +54,7 @@ export class AuthController {
       sameSite: "strict",
       path: "/",
       expires: new Date(0),
-    }).redirect("http://localhost:3000/")
+    }).redirect(process.env.LOGINOUT)
   }
 
   @Get('/github')
@@ -74,10 +74,7 @@ export class AuthController {
         secure: true,
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 365
-      }).redirect("http://localhost:3000/");
-    }
-    else {
-      res.redirect("http://localhost:3000/login")
+      }).redirect(process.env.SUCCESSFULL_LOGIN_REDIRECT);
     }
   }
 
@@ -99,7 +96,7 @@ export class AuthController {
         maxAge: 7 * 24 * 60 * 60
       })
       
-      res.redirect("http://localhost:3000/login")
+      res.redirect(process.env.SUCCESSFULL_LOGIN_REDIRECT)
     }
   }
 
