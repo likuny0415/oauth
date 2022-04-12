@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Cat } from '@prisma/client';
 
 import { CatsService } from './cat.service';
@@ -6,7 +7,8 @@ import { CatsService } from './cat.service';
 
 @Controller('cat')
 export class CatController {
-  constructor(private readonly catService: CatsService) {}
+  constructor(private readonly catService: CatsService,
+    private readonly http: HttpService) {}
   
 
   @Post("create")

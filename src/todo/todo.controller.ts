@@ -12,11 +12,12 @@ export class TodoController {
 
 
     @Post('create')
-    async create(@Body() request: Todo) {
-        // const { userId } = req.user
-        const { id, text, ddl, complete, priority, userId } = request
+    async create(@Body() request: Todo, @Req() req) {
         
-        request.userId = "885c7b57-0cc1-4cc6-b917-8a908bdc8b55"
+        const { userId } = req.user
+        // const { id, text, ddl, complete, priority } = request
+        // console.log(request)
+        request.userId = userId
         const r= await this.todoService.createTodo(request);
         return {
             code: 200,
@@ -37,8 +38,9 @@ export class TodoController {
     }
 
     @Get("findall")
-    async findAll() {
-        const r = await this.todoService.findAll();
+    async findAll(@Req() res) {
+        const { userId } = res.user
+        const r = await this.todoService.findAll(userId);
         return {
             code: 200,
             msg: "success",

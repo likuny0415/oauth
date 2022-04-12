@@ -1,13 +1,15 @@
 
+import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { Cat, Prisma } from '@prisma/client';
+import { map } from 'rxjs';
 import { PrismaService } from 'src/prisma.service';
-
 
 
 @Injectable()
 export class CatsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService,
+    private httpService: HttpService) {}
 
   async create(data: Prisma.CatCreateInput) {
     return this.prisma.cat.create({data})
@@ -20,5 +22,11 @@ export class CatsService {
 
       }
     })
+  }
+
+  findAll(htttRequest: string) {
+    return this.httpService.get(htttRequest).pipe(
+      map(response => response.data)
+    )
   }
 }

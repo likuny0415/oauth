@@ -23,13 +23,27 @@ export class AuthController {
       })
       res.json({ loggedIn: true})
     }
-   
-    return await this.authService.login(req.user)
+
   }
 
   @Post('signup')
-  async signup(@Body() signupUser) {
-    return await this.authService.signup(signupUser)
+  async signup(@Body() data) {
+    try {
+      const r = await this.authService.signup(data);
+      return {
+        code: 200,
+        msg: "success",
+        r
+      }
+    } catch (error) {
+      return {
+        code: 400,
+        msg: "fail",
+        error: "Email is already in use"
+      }
+    }
+    // return await this.authService.signup(data)
+    
   }
  
   @Get('/logout')

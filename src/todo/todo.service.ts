@@ -41,7 +41,7 @@ export default class TodoService {
         return todo
     }
 
-    async findAll() {
+    async findAll(userId: string) {
         const todos = await this.prisma.todo.findMany({
             orderBy: [
                 {
@@ -52,10 +52,12 @@ export default class TodoService {
                 }
             ],
             where: {
-                complete: 1
+                complete: 1,
+                userId
             }
 
         });
+        
         todos.map(todo => {
             todo.ddl = dayjs(todo.ddl).toDate()
         })
