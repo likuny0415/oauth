@@ -21,7 +21,6 @@ export class AuthController {
         maxAge: 24 * 60 * 60 * 365,
         sameSite: 'none',
         secure: true,
-        domain: process.env.DOMAIN,
         path: "/"
       })
       res.json({ loggedIn: true})
