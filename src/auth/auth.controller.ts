@@ -19,7 +19,8 @@ export class AuthController {
       res.cookie('accessToken', jwt, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 365,
-        sameSite: 'none'
+        sameSite: 'none',
+        secure: true
       })
       res.json({ loggedIn: true})
     }
