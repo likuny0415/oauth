@@ -39,6 +39,7 @@ export class TodoController {
 
     @Get("findall")
     async findAll(@Req() res) {
+        console.log(res)
         const { userId } = res.user
         const r = await this.todoService.findAll(userId);
         return {

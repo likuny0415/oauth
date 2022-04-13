@@ -13,7 +13,7 @@ async function bootstrap() {
     origin: process.env.FRONTEND_URL,
     allowedHeaders: 'Cookies, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true
+    credentials: true,
   })
 
   // app.enableCors()
