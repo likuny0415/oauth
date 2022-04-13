@@ -12,19 +12,20 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(AuthGuard("local"))
-  async login(@Request() req, @Res() res: Response) {
-    const jwt: string = req.user.jwt;
-    if (jwt) {
-      res.cookie('accessToken', jwt, {
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 365,
-        sameSite: 'none',
-        secure: true,
-        path: "/",
-      })
-      res.json({ loggedIn: true})
-    }
-
+  async login(@Request() req) {
+    // const jwt: string = req.user.jwt;
+    // if (jwt) {
+    //   res.cookie('accessToken', jwt, {
+    //     httpOnly: true,
+    //     maxAge: 24 * 60 * 60 * 365,
+    //     sameSite: 'none',
+    //     secure: true,
+    //     path: "/",
+    //   })
+    //   res.json({ loggedIn: true})
+    // }
+    
+    return req.user
   }
 
   @Post('signup')
