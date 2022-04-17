@@ -1,0 +1,24 @@
+type Bird {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateBirdInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateBirdInput {
+  id: Int!
+}
+
+type Query {
+  bird: [Bird]!
+  bird(id: Int!): Bird
+}
+
+type Mutation {
+  createBird(createBirdInput: CreateBirdInput!): Bird!
+  updateBird(updateBirdInput: UpdateBirdInput!): Bird!
+  removeBird(id: Int!): Bird
+}

@@ -32,6 +32,38 @@ model Todo {
   userId String
 }
 
+
+model Photo {
+  id String @id @unique
+  width Int
+  height Int
+  alt_description String
+  urls Url[]
+  photographer Photographer @relation(fields: [photographerId], references: [id])
+  photographerId String
+}
+
+model Photographer {
+  id String @id
+  username String
+  name String
+  photos Photo[]
+}
+
+model ProfileImage {
+  id String @id @default(uuid())
+  format String
+  link String
+}
+
+model Url {
+  id String @id @default(uuid()) 
+  format String
+  link String @db.LongText
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  photoId String
+}
+
 model Cat {
   id Int @id @default(autoincrement())
   name String
