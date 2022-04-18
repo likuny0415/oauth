@@ -9,6 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "dev": "concurrently \"npm:start:dev\" \"npm:gen-typings\" \"npm:prisma:generate\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "gen-typings": "ts-node ./src/generate-typings",
@@ -37,6 +38,7 @@
     "apollo-server-express": "^3.6.7",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
+    "concurrently": "^7.1.0",
     "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.0",
     "dotenv": "^16.0.0",
@@ -52,7 +54,8 @@
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "ts-morph": "^14.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

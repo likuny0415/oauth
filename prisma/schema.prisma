@@ -64,6 +64,20 @@ model Url {
   photoId String
 }
 
+model Dog {
+  id Int @id @default(autoincrement())
+  name String
+  age Int
+  toys Toy[]
+}
+
+model Toy {
+  id Int @id @default(autoincrement())
+  dogId Int
+  dog Dog @relation(fields: [dogId], references: [id])
+  name String
+}
+
 model Cat {
   id Int @id @default(autoincrement())
   name String

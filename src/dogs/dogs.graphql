@@ -1,0 +1,28 @@
+type Toy {
+  name: String
+}
+
+type Dog {
+  id: Int!
+  age: Int!
+  name: String!
+  toys: [Toy]
+}
+
+# input CreateDogInput {
+#   age: Int!
+#   name: String!
+#   toys: [Toy]
+# }
+
+
+
+type Query {
+  dogs: [Dog]!
+  dog(id: Int!): Dog
+}
+
+type Mutation {
+  createDog(age: String, name: String, toys: String): Dog!
+  removeDog(id: Int!): Dog
+}

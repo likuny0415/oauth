@@ -11,16 +11,16 @@ import { PhotoModule } from "./photo/photo.module";
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { ApolloDriver } from "@nestjs/apollo";
-import { BirdModule } from './bird/bird.module';
+import { DogsModule } from './dogs/dogs.module';
 
 require("dotenv").config();
 @Module({
   imports: [
     GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
       driver: ApolloDriver,
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-      typePaths: ['./**/*.graphql'],
     }),
     CatModule,
     UsersModule,
@@ -28,7 +28,7 @@ require("dotenv").config();
     TodoModuel,
     HttpModule,
     PhotoModule,
-    BirdModule,
+    DogsModule,
     
   ],
   controllers: [AppController],
