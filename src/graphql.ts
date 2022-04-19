@@ -7,6 +7,12 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export class CreateDogInput {
+    age: number;
+    name: string;
+    toys: string;
+}
+
 export class Toy {
     name?: Nullable<string>;
 }
@@ -25,7 +31,9 @@ export abstract class IQuery {
 }
 
 export abstract class IMutation {
-    abstract createDog(age?: Nullable<string>, name?: Nullable<string>, toys?: Nullable<string>): Dog | Promise<Dog>;
+    abstract createToy(toy?: Nullable<string>): Nullable<Toy> | Promise<Nullable<Toy>>;
+
+    abstract createDog(CreateDogInput?: Nullable<CreateDogInput>): Dog | Promise<Dog>;
 
     abstract removeDog(id: number): Nullable<Dog> | Promise<Nullable<Dog>>;
 }

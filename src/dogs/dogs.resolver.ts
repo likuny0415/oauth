@@ -9,7 +9,7 @@ export class DogsResolver {
 
   @Mutation('createDog')
   create(@Args('createDogInput') createDogInput) {
-    console.log(createDogInput)
+   console.log(createDogInput)
     return this.dogsService.create(createDogInput);
   }
 
@@ -22,6 +22,9 @@ export class DogsResolver {
   findOne(@Args('id') id: number) {
     return this.dogsService.findOne(id);
   }
+
+  // @Mutation('createToy')
+  // createToy(@Args('create'))
 
   @Mutation('removeDog')
   remove(@Args('id') id: number) {

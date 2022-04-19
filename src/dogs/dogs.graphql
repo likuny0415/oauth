@@ -9,11 +9,11 @@ type Dog {
   toys: [Toy]
 }
 
-# input CreateDogInput {
-#   age: Int!
-#   name: String!
-#   toys: [Toy]
-# }
+input CreateDogInput {
+  age: Int!
+  name: String!
+  toys: String!
+}
 
 
 
@@ -23,6 +23,7 @@ type Query {
 }
 
 type Mutation {
-  createDog(age: String, name: String, toys: String): Dog!
+  createToy(toy: String): Toy
+  createDog(CreateDogInput: CreateDogInput): Dog!
   removeDog(id: Int!): Dog
 }

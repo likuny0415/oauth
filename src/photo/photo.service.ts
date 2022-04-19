@@ -13,7 +13,7 @@ export class PhotoService {
     async createPhoto(request) {
         const { id, width, height, alt_description, user, urls } = request
         
-        // urls.regular, urls.thumb
+       
         const { regular, thumb } = urls
 
         const createPhoto = await this.prisma
