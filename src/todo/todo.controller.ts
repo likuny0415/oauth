@@ -38,8 +38,8 @@ export class TodoController {
     }
 
     @Get("findall")
-    async findAll(@Req() res) {
-        const { userId } = res.user
+    async findAll(@Req() req) {
+        const { userId } = req.user
         const r = await this.todoService.findAll(userId);
         return {
             code: 200,

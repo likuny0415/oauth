@@ -1,8 +1,10 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, Res, UseGuards } from "@nestjs/common";
+import { AuthGuard } from '@nestjs/passport';
 import { Photo } from "@prisma/client";
 import { PhotoService } from "./photo.service";
 
 @Controller('photo') 
+@UseGuards(AuthGuard('jwt'))
 export class PhotoController {
 
     constructor(
@@ -10,7 +12,16 @@ export class PhotoController {
     ) {}
 
     @Post('like')
-    async createPhoto(@Body() request) {
+    async createPhoto(@Body() request, @Req() req) {
+        const { userId } = req.user
+        request.userId = userId
         return await this.photoService.createPhoto(request)
     }
+
+    @Get('findall')
+    async findAll(@Req() req) {
+        const { userId } = req.user
+        return await this.photoService.findAll(userId)
+    }
+
 } 
