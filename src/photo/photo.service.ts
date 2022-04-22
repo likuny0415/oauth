@@ -70,6 +70,7 @@ export class PhotoService {
               createAt: 'asc'
           }
       })
+      
       return photos
   }
 }
