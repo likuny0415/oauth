@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, Req, Res, UseGuards } from "@nestjs/common";
 import { AuthGuard } from '@nestjs/passport';
 import { Photo } from "@prisma/client";
 import { PhotoService } from "./photo.service";
@@ -19,9 +19,9 @@ export class PhotoController {
     }
 
     @Get('findall')
-    async findAll(@Req() req) {
-        const { userId } = req.user
-        return await this.photoService.findAll(userId)
+    async findAll(@Req() req, @Query() query) {
+        const { userId } = req.user    
+        return await this.photoService.findAll(userId, query)
     }
 
 } 

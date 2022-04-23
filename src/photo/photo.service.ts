@@ -7,7 +7,6 @@ export class PhotoService {
   constructor(private prisma: PrismaService) {}
 
   async createPhoto(request) {
-      
     const { id, width, height, alt_description, user, urls, userId } = request;
 
     const { regular, thumb } = urls;
@@ -16,8 +15,8 @@ export class PhotoService {
     const findPhoto = await this.findPhotoById(id);
 
     if (findPhoto) {
-        const updatePhoto = await this.updateLike(id, findPhoto.like)
-        return updatePhoto
+      const updatePhoto = await this.updateLike(id, findPhoto.like);
+      return updatePhoto;
     } else {
       const photo = {
         id,
@@ -31,13 +30,12 @@ export class PhotoService {
         user_links_html: links.html,
         user_profile_image_medium: profile_image.medium,
         user: {
-            connect: { id: userId }
-        }
+          connect: { id: userId },
+        },
       };
 
       const createPhoto = await this.prisma.photo.create({
         data: photo,
-
       });
       return createPhoto;
     }
@@ -51,26 +49,30 @@ export class PhotoService {
   }
 
   async updateLike(id: string, status: boolean) {
-      const photo = await this.prisma.photo.update({
-          where: { id },
-          data: {
-              like: !status
-          }
-      })
-      return photo
+    const photo = await this.prisma.photo.update({
+      where: { id },
+      data: {
+        like: !status,
+      },
+    });
+    return photo;
   }
 
-  async findAll(userId: string) {
-      const photos = await this.prisma.photo.findMany({
-          where: {
-              userId,
-              like: true
-          },
-          orderBy: {
-              createAt: 'asc'
-          }
-      })
-      
-      return photos
+  async findAll(userId: string, query) {
+    const { take, skip } = query;
+
+    const photos = await this.prisma.photo.findMany({
+      take: parseInt(take),
+      skip: parseInt(skip),
+      where: {
+        userId,
+        like: true,
+      },
+      orderBy: {
+        createAt: "asc",
+      },
+    });
+    console.log(photos.length)
+    return photos;
   }
 }
