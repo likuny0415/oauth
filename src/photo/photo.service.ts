@@ -59,10 +59,10 @@ export class PhotoService {
   }
 
   async findAll(userId: string, query) {
-    const { take, skip } = query;
+    const { skip } = query;
 
     const photos = await this.prisma.photo.findMany({
-      take: parseInt(take),
+      take: 10,
       skip: parseInt(skip),
       where: {
         userId,

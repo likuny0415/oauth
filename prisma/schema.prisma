@@ -3,11 +3,13 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 
@@ -29,8 +31,9 @@ model Todo {
   ddl DateTime
   complete Int // 1: Not Down, 2: Down, 3: Deleted
   priority Int // 1: Low, 2: Medium, 3: High
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+  @@index([userId])
 }
 
 
