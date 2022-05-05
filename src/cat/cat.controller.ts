@@ -34,7 +34,6 @@ export class CatController {
         "thumb": "https://images.unsplash.com/photo-1516214104703-d870798883c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMTkxNjJ8MHwxfHNlYXJjaHwxMXx8Zm9yZXN0fGVufDB8fHx8MTY1MDM3MjU4Mg&ixlib=rb-1.2.1&q=80&w=200",
     },
     "user": {
-      
         "id": "DeIzyLUFsbE",
         "name": "Imat Bagja Gumilar",        
         "links": {
