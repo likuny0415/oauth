@@ -71,10 +71,10 @@ export class AuthController {
     const jwt: string = req.user.jwt;
     
     if (jwt) {
-      res.redirect(`http://localhost:3000/login?token=${jwt}`);
+      res.redirect(`${process.env.SUCCESSFULL_LOGIN_REDIRECT}?token=${jwt}`);
     }
     
-  
+    return jwt;
   }
 
   @Get("/google")
