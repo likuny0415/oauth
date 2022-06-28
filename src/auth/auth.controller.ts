@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Req, Res, Request, UseGuards } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import { CreateUerDTO } from 'src/users/dto/create-user.dto';
@@ -67,17 +68,13 @@ export class AuthController {
   @Get('/github/redirect')
   @UseGuards(AuthGuard('github'))
   githubAuthRedirect(@Req() req, @Res() res: Response) {
-    
     const jwt: string = req.user.jwt;
-
+    
     if (jwt) {
-      res.cookie('accessToken', jwt, {
-        sameSite: 'none',
-        secure: true,
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 365
-      }).redirect(process.env.SUCCESSFULL_LOGIN_REDIRECT);
+      res.redirect(`http://localhost:3000/login?token=${jwt}`);
     }
+    
+  
   }
 
   @Get("/google")
