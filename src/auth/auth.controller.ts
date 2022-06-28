@@ -89,14 +89,7 @@ export class AuthController {
   googleAuthRedirect(@Req() req, @Res() res: Response) {
     const jwt: string = req.user.jwt;
 
-    if (jwt) {
-      res.cookie('accessToken', jwt, {
-        httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60
-      })
-      
-      res.redirect(process.env.SUCCESSFULL_LOGIN_REDIRECT)
-    }
+    res.redirect(`${process.env.SUCCESSFULL_LOGIN_REDIRECT}?token=${jwt}`);
   }
 
   @Post('test')
