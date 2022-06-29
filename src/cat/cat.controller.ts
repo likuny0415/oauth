@@ -1,7 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Cat } from '@prisma/client';
-
 import { CatsService } from './cat.service';
 
 
@@ -13,7 +12,7 @@ export class CatController {
 
   @Post("create")
   async createCat(@Body() catData) {
-    
+
     return this.catService.create(catData)
   }
   
