@@ -11,7 +11,9 @@ export default class TodoService {
     ) {}
 
     async createTodo(request: Todo) {
+        
         const { id, text, ddl, complete, priority, userId } = request
+        console.log(userId)
         const ddlToDate = dayjs(ddl).toDate()
     
         const todo = await this.prisma.todo.create({

@@ -48,9 +48,10 @@ model Photo {
   user_name String
   user_links_html String @db.Text
   user_profile_image_medium String @db.Text
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
   createAt DateTime @default(now())
+  @@index([userId])
 }
 
 
