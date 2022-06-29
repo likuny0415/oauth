@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "dev": "concurrently \"npm:start:dev\" \"npm:gen-typings\" \"npm:prisma:generate\"",
+    "dev": "concurrently \"npm:start:dev\" ", 
     "start": "nest start",
     "start:dev": "nest start --watch",
     "gen-typings": "ts-node ./src/generate-typings",
