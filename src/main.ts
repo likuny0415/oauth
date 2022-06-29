@@ -10,8 +10,8 @@ async function bootstrap() {
 
   // important for front end to carry with credientials
   app.enableCors({
-    origin: true,
-    allowedHeaders: 'Cookies, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe, Authorization',
+    origin: process.env.ORIGIN,
+    allowedHeaders: 'Cookies,Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     

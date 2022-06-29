@@ -18,7 +18,7 @@ export class TodoController {
         // const { id, text, ddl, complete, priority } = request
         // console.log(request)
         request.userId = userId
-        console.log(userId)
+        
         const r= await this.todoService.createTodo(request);
         return {
             code: 200,

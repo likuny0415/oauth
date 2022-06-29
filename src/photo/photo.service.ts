@@ -72,7 +72,7 @@ export class PhotoService {
         createAt: "asc",
       },
     });
-    console.log(photos.length)
+    
     return photos;
   }
 }
