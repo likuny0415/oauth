@@ -10,7 +10,7 @@ async function bootstrap() {
 
   // important for front end to carry with credientials
   app.enableCors({
-    origin: ["http://localhost:8000", "https://kuny-todo.herokuapp.com"],
+    origin: true,
     allowedHeaders: 'Cookies, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe, Authorization',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
