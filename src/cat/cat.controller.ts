@@ -13,6 +13,7 @@ export class CatController {
 
   @Post("create")
   async createCat(@Body() catData) {
+    
     return this.catService.create(catData)
   }
   
