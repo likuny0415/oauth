@@ -2,7 +2,6 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { Cat, Prisma } from '@prisma/client';
-import { map } from 'rxjs';
 import { PrismaService } from 'src/prisma.service';
 
 
@@ -24,9 +23,5 @@ export class CatsService {
     })
   }
 
-  findAll(htttRequest: string) {
-    return this.httpService.get(htttRequest).pipe(
-      map(response => response.data)
-    )
-  }
+  
 }

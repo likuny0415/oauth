@@ -7,7 +7,6 @@ import {
 import { UsersService } from "src/users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import { sign } from "jsonwebtoken";
-import { User } from "@prisma/client";
 require("dotenv").config();
 
 @Injectable()
