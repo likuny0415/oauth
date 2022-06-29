@@ -25,7 +25,8 @@ export class AuthController {
     //   })
     //   res.json({ loggedIn: true})
     // }
-    
+    console.log(req)
+    console.log(req.user)
     return req.user
   }
 
