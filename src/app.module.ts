@@ -16,7 +16,6 @@ import { ApolloDriver } from "@nestjs/apollo";
 require("dotenv").config();
 @Module({
   imports: [
-
     CatModule,
     UsersModule,
     AuthModule,
