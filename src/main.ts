@@ -10,10 +10,13 @@ async function bootstrap() {
 
   // important for front end to carry with credientials
   app.enableCors({
-    origin: process.env.ORIGIN,
-    credentials: true
+    origin: process.env.FRONTEND_URL,
+    allowedHeaders: 'Cookies, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe, Authorization',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
     
   })
+
 
   // app.enableCors()
   
